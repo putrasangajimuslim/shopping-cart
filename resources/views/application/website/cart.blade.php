@@ -72,8 +72,97 @@
             <div class="text-center my-4">
                 <h2>Troli Anda</h2>
             </div>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Pilihan harga</th>
+                        <th>Kuantitas</th>
+                        <th>Subtotal</th>
+                        <th>Hapus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($cartUsers as $cartUser)
+                    <tr>
+                        <td>
+                            <div class="d-flex">
+                                <div class="img">
+                                    <img src="{{ asset('storage/'. $cartUser->product->image )}}" alt="" width="70px">
+                                </div>
+        
+                                <div class="detail-product ml-3">
+                                    <div>
+                                        {{ $cartUser->product->name }}
+                                    </div>
+                                    <div>
+                                        {{ $cartUser->product->kode_barang }}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            {{ $cartUser->product->harga }}
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <!-- <form action="{{ route('application.admin.cart.change-qty-coupon') }}" id="form-change-qty-coupon" method="POST">
+                                    @csrf
+                                    <input type="hidden" value="{{ $cartUser->id }}" name="cart_user_id" id="cart_user_id">
+                                    <input type="hidden" name="qty_change" id="qty-change">
+                                    <button type="submit" id="btn-close" hidden></button>
+                                </form> -->
+                                <input type="hidden" value="{{ $cartUser->id }}" id="cart-id">
+                                <input type="number" id="qty" name="quantity" class="form-control" value="{{ $cartUser->qty }}" onclick="changeQty(this.value);">
+                            </div>
+                        </td>
+                        <td>
+                            <div id="sub-total">
+                                {{ $cartUser->sub_total }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                                </button> -->
 
-            <a href="" data-toggle="modal" data-target="#exampleModal">Gunakan Kode Diskon</a>
+                                <form action="{{ route('application.admin.cart.delete-coupon') }}" id="form-delete-coupon" method="POST">
+                                    @csrf
+                                    <input type="hidden" value="{{ $cartUser->id }}" name="cart_user_id" id="cart_user_id">
+                                    <button type="submit" id="btn-close">
+                                        <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        Total
+                    </td>
+                    <td>
+                        Rp.45.000
+                    </td>
+                    <td></td>
+                </tfoot>
+                <tfoot>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a href="" data-toggle="modal" data-target="#exampleModal">Gunakan Kode Diskon/Reward</a>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tfoot>
+                
+            </table>
+            <!-- <a href="" data-toggle="modal" data-target="#exampleModal">Gunakan Kode Diskon</a> -->
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -114,10 +203,23 @@
             $( "#form-logout" ).submit();
         });
 
+        $("#btn-close").click(function() {
+            $( "#form-delete-coupon" ).submit();
+        });
+
         $("#btm-terap").click(function() {
             $("#exampleModal .close").click();
             $( "#form_coupon" ).submit();
         });
+
+        function changeQty(value) {
+            var test = $("#cart-id").val();
+            alert(test);
+            // var qty = value;
+            // $("#qty-change").val(qty);
+
+            // $( "#form-change-qty-coupon" ).submit();
+        }
     </script>
 	</body>
 </html>

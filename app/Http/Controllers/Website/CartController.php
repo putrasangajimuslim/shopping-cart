@@ -82,4 +82,16 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', 'Succesfully Add Coupon Discount');
     }
+
+    public function deleteCoupon(Request $request) {
+        $userId = auth()->user()->id;
+        Transactions::where('user_id', $userId)->where('id', $request->cart_user_id)->delete();
+
+        return redirect()->route('application.admin.cart.index');
+
+    }
+
+    public function changeQtyCoupon(Request $request) {
+        dd($request->all());
+    }
 }

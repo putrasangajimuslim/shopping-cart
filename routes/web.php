@@ -46,6 +46,8 @@ Route::prefix('application')->name('application.')->group(function () {
         Route::prefix('cart')->name('cart.')->group(function () {
             Route::get('/', [CartController::class, 'index'])->name('index');
             Route::post('/get-coupon', [CartController::class, 'getCoupon'])->name('get-coupon');
+            Route::post('/change-qty-coupon', [CartController::class, 'changeQtyCoupon'])->name('change-qty-coupon');
+            Route::post('/delete-coupon', [CartController::class, 'deleteCoupon'])->name('delete-coupon');
             Route::get('/{productId}', [CartController::class, 'find'])->name('find');
         });
     });
