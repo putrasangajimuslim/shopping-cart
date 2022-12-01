@@ -107,14 +107,12 @@
                         </td>
                         <td>
                             <div class="input-group">
-                                <!-- <form action="{{ route('application.admin.cart.change-qty-coupon') }}" id="form-change-qty-coupon" method="POST">
+                                <form action="{{ route('application.admin.cart.change-qty-coupon') }}" id="form-change-qty-coupon" method="POST">
                                     @csrf
                                     <input type="hidden" value="{{ $cartUser->id }}" name="cart_user_id" id="cart_user_id">
-                                    <input type="hidden" name="qty_change" id="qty-change">
-                                    <button type="submit" id="btn-close" hidden></button>
-                                </form> -->
-                                <input type="hidden" value="{{ $cartUser->id }}" id="cart-id">
-                                <input type="number" id="qty" name="quantity" class="form-control" value="{{ $cartUser->qty }}" onclick="changeQty(this.value);">
+                                    <button type="submit" id="btn-qty" hidden></button>
+                                </form>
+                                <input type="number" id="qty" name="quantity" class="form-control" value="{{ $cartUser->qty }}" onchange="changeQty(this.value);">
                             </div>
                         </td>
                         <td>
@@ -213,12 +211,10 @@
         });
 
         function changeQty(value) {
-            var test = $("#cart-id").val();
-            alert(test);
-            // var qty = value;
-            // $("#qty-change").val(qty);
+            var qty = value;
+            $("#qty-change").val(qty);
 
-            // $( "#form-change-qty-coupon" ).submit();
+            $( "#form-change-qty-coupon" ).submit();
         }
     </script>
 	</body>

@@ -92,6 +92,11 @@ class CartController extends Controller
     }
 
     public function changeQtyCoupon(Request $request) {
-        dd($request->all());
+        $userId = auth()->user()->id;
+        $transaction = Transactions::where('id', $request->cart_user_id)->where('user_id', $userId)->first();
+        $transaction->qty = $request->qty_change;
+        $transaction->save();
+
+        return redirect()->route('application.admin.cart.index');
     }
 }
